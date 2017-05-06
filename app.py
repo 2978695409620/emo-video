@@ -34,6 +34,7 @@ def landing():
 @app.route('/video/', methods=['POST'])
 def display_videos():
 	picture = request.files['file']
+	return picture.filename
 	if picture and validate_image(picture.filename):
 		filename = secure_filename(picture.filename)
 		picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
