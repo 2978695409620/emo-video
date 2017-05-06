@@ -42,7 +42,14 @@ def display_videos():
 
 		result = requests.post(EMOTION_URL, headers=headers, data=body)
 
-		return result.content
+		high_score = 0
+		dominant_emotion = ''
+
+		for emotion, score in result[0]['scores'].iteritems():
+			if score > high_score:
+				dominant_emotion = emotion
+
+		return dominant_emotion
 
 	return build_image_url(filename)
 
