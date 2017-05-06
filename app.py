@@ -53,10 +53,11 @@ def display_videos():
 				if float(score) > high_score:
 					dominant_emotion = emotion
 					high_score = float(score)
+			return dominant_emotion
+		else: 
+			return 'Invalid Image'
 
-		return dominant_emotion
-
-	return build_image_url(filename)
+	return 'No image found'
 
 @app.route('/images/<string:filename>/')
 def display_image(filename):
