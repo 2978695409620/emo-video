@@ -45,7 +45,9 @@ def display_videos():
 		high_score = 0
 		dominant_emotion = ''
 
-		for emotion, score in result[0]['scores'].iteritems():
+		return result.content
+
+		for emotion, score in result.content[0]['scores'].iteritems():
 			if score > high_score:
 				dominant_emotion = emotion
 
