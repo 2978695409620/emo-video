@@ -1,5 +1,6 @@
 import os
 
+import ast
 from flask import Flask, render_template, url_for, redirect, request, jsonify, flash, send_from_directory
 import requests
 from werkzeug import secure_filename
@@ -45,9 +46,13 @@ def display_videos():
 		high_score = 0
 		dominant_emotion = ''
 
-		for emotion, score in result.content[0]['scores'].iteritems():
-			if score > high_score:
-				dominant_emotion = emotion
+		result_list = ast.literal_eval(result.content)
+		if result_list and 'scores' in result_list[0]:
+			scores = result_list[0]['scores']
+			for emotion, score in scores.iteritems():
+				if float(score) > high_score:
+					dominant_emotion = emotion
+					high_score = float(score)
 
 		return dominant_emotion
 
