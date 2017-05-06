@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% block content %}
+
+	<div class="row top-menu">
+		<div class="col-md-6">
+			<a href="{{url_for('show_all_lists')}}">
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+				Try Another Picture
+			</a>
+		</div>
+	</div>
+
+	<div class="row divider blue">
+		<div class="col-md-12">
+		</div>
+	</div>
+
+	<div class="row banner main">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-7 padding-none">
+			<h1>Current Emotion: {{emotion}}</h1>
+		</div>
+	</div>
+
+{% endblock %}

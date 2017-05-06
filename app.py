@@ -29,9 +29,9 @@ def build_image_url(filename):
 
 @app.route('/', methods=['GET'])
 def landing():
-	return render_template('emo-video.html')
+	return render_template('upload.html')
 
-@app.route('/videos/', methods=['POST'])
+@app.route('/video/', methods=['POST'])
 def display_videos():
 	picture = request.files['file']
 	if picture and validate_image(picture.filename):
@@ -47,15 +47,18 @@ def display_videos():
 		dominant_emotion = ''
 
 		result_list = ast.literal_eval(result.content)
-		if result_list and 'scores' in result_list[0]:
+
+		if 'error' in result_list:
+			return 'Could not process image'
+		elif not result_list or len(result_list) == 0:
+			return 'Invalid Image'
+		else:
 			scores = result_list[0]['scores']
 			for emotion, score in scores.iteritems():
 				if float(score) > high_score:
 					dominant_emotion = emotion
 					high_score = float(score)
-			return dominant_emotion
-		else: 
-			return 'Invalid Image'
+			return render_template('video.html', emotion=dominant_emotion)
 
 	return 'No image found'
 
