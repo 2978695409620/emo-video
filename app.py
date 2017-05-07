@@ -83,7 +83,7 @@ def display_videos():
 				dominant_emotion = emotion
 				high_score = float(score)
 
-		video_urls = search_youtube(dominant_emotion, MAX_VIDEO_RESULT)
+		video_urls = search_youtube(dominant_emotion + ' music video', MAX_VIDEO_RESULT)
 
 		return render_template('video.html', emotion=dominant_emotion, video_urls=video_urls)
 
