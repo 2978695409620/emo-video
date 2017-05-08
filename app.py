@@ -9,6 +9,7 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 app.debug = True
+app.secret_key = 'secret_key'
 
 app.config['UPLOAD_FOLDER'] = '/tmp/'
 app.config['ALLOWED_EXTENSIONS'] = set(['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff'])
@@ -73,9 +74,11 @@ def display_videos():
 		result_list = ast.literal_eval(result.content)
 
 		if 'error' in result_list:
-			return 'Could not process image'
+			flash('Could Not Process Image, Please Try Again!')
+			return render_template('video.html')
 		elif not result_list or len(result_list) == 0:
-			return 'Invalid Image'
+			flash('Invalid Image, Please Try Again!')
+			return render_template('video.html')
 		
 		scores = result_list[0]['scores']
 		for emotion, score in scores.iteritems():
@@ -85,9 +88,12 @@ def display_videos():
 
 		video_urls = search_youtube(dominant_emotion + ' music video', MAX_VIDEO_RESULT)
 
+		dominant_emotion = dominant_emotion.capitalize()
+
 		return render_template('video.html', emotion=dominant_emotion, video_urls=video_urls)
 
-	return 'No image found'
+	flash('No Image Found, Please Try Again!')
+	return render_template('video.html')
 
 @app.route('/images/<string:filename>/')
 def display_image(filename):

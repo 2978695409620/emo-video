@@ -5,7 +5,7 @@
 		<div class="col-md-6">
 			<a href="{{url_for('landing')}}">
 				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-				Try Another Picture
+				Use Another Picture
 			</a>
 		</div>
 	</div>
@@ -14,21 +14,49 @@
 		<div class="col-md-12">
 		</div>
 	</div>
-
-	<div class="row banner main">
-		<div class="col-md-5">
+	
+	<div class="row row-centered banner menu">
+		<div class="col-lg-6 col-centered padding-none">
+			{% if emotion %}
+				<h1>Emotion Detected: {{emotion}}</h1>
+			{% else %}
+				<h1>Something went wrong ):</h1>
+			{% endif %}
 		</div>
-		<div class="col-md-7 padding-none">
-			<h1>Current Emotion: {{emotion}}</h1>
+	</div>
+
+	<div class="row divider blue">
+		<div class="col-md-12">
 		</div>
 	</div>
 
-	<div class="row banner main">
-		<div class="col-md-5">
-		</div>
-		<div class="col-md-7 padding-none">
-			<iframe width="640" height="390" src="{{video_urls[0]}}" frameborder="1"></iframe>
-		</div>
+	<div class='flash'>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul>
+					{% for message in messages %}
+						<li> <strong> {{ message }} </strong> </li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
 	</div>
+
+	{% if video_urls %}
+		<div class="row row-centered banner main">
+			<div class="col-lg-6 col-centered padding-top">
+				<iframe width="640" height="390" src="{{video_urls[0]}}" frameborder="1"></iframe>
+			</div>
+		</div>
+	{% else %}
+		<div class="row row-centered">
+			<div class="col-md-6 col-centered padding-top">
+				<a href="{{url_for('landing')}}">
+					<span class="glyphicon" aria-hidden="true"></span>
+					Click Here To Try Another Picture
+				</a>
+			</div>
+		</div>
+	{% endif %}
 
 {% endblock %}
