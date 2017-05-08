@@ -8,7 +8,7 @@ from flask import Flask, render_template, url_for, redirect, request, jsonify, f
 from werkzeug import secure_filename
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 app.secret_key = 'secret_key'
 
 app.config['UPLOAD_FOLDER'] = '/tmp/'
