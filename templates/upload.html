@@ -19,6 +19,14 @@
 
 	<div class="row row-centered">
 		<div class="col-md-2 col-centered">
+			<p>
+				Upload a photo with one or more faces, and you will get a music video depending on the emotions exhibited in the photo!
+			</p>
+		</div>
+	</div>
+
+	<div class="row row-centered">
+		<div class="col-md-2 col-centered">
 			<form action = "{{url_for('display_videos')}}" method = "POST" enctype = "multipart/form-data">
 				<input type = "file" name = "file" accept="image/*"/>
 				<button type = "submit" class="btn btn-default">
